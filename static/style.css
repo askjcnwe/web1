@@ -88,11 +88,12 @@ input[type="text"] {
     padding: 2%;
 }
 
-/* псевдоэлемент в заголовке (пример ::first-letter) */
-.header h1::first-letter {
+/* псевдоэлемент в заголовке (пример ::first-letter) — применяем к #header */
+#header::first-letter {
     font-size: 1.2em;
     color: #444;
 }
+
 
 /* демонстрация псевдокласса :first-child */
 #results tbody tr:first-child {

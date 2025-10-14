@@ -6,19 +6,11 @@ function setX(value, button) {
     button.classList.add('active');
 }
 
-// prevent Ctrl+D default behaviour (example of handling premature input)
-document.addEventListener('keydown', (e) => {
-    if (e.ctrlKey && (e.key === 'd' || e.key === 'D')) {
-        e.preventDefault();
-        alert('Ctrl+D заблокирован в форме');
-    }
-});
-
 document.getElementById('point-form').addEventListener('submit', async e => {
-    e.preventDefault(); // use AJAX GET
+    e.preventDefault(); 
 
     const yRaw = document.getElementById('y').value.trim();
-    const y = parseFloat(yRaw.replace(',', '.')); // allow comma
+    const y = parseFloat(yRaw.replace(',', '.')); 
     const r = document.querySelector('input[name="r"]:checked')?.value;
 
     // Client-side validation
@@ -50,7 +42,7 @@ document.getElementById('point-form').addEventListener('submit', async e => {
         }
 
         const tbody = document.querySelector('#results tbody');
-tbody.innerHTML = ''; // перерисуем всю историю
+        tbody.innerHTML = ''; // перерисуем всю историю
 
         if (data.history && Array.isArray(data.history)) {
             data.history.forEach(entry => {
@@ -60,7 +52,7 @@ tbody.innerHTML = ''; // перерисуем всю историю
                 const rv = entry.r ?? '';
                 const res = entry.result ? 'Попадание' : 'Мимо';
                 const timeUs = entry.time_us ?? '';
-                const localTime = new Date().toLocaleTimeString();
+                const serverTime = entry.server_time ?? '';
 
                 row.innerHTML = `
                     <td>${xv}</td>
@@ -68,11 +60,9 @@ tbody.innerHTML = ''; // перерисуем всю историю
                     <td>${rv}</td>
                     <td>${res}</td>
                     <td>${timeUs}</td>
-                    <td>${localTime}</td>`;
+                    <td>${serverTime}</td>`;
                 tbody.appendChild(row);
             });
-
-
         } else if (data.last) {
             const entry = data.last;
             const row = document.createElement('tr');

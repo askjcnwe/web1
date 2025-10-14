@@ -8,11 +8,7 @@ import java.nio.charset.StandardCharsets;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
-/**
- * FastCGI server main loop.
- * Работает по GET (QUERY_STRING).
- * Исправлена отправка HTTP-заголовков (CRLF), добавлены логи и устойчивость.
- */
+
 public class Main {
 
     private static final String BASE_RESPONSE_TEMPLATE = ""
@@ -24,7 +20,7 @@ public class Main {
             + "\r\n"
             + "%s";
 
-    // История результатов в памяти (теряется при перезапуске)
+    // История результатов в памяти
     private static final List<Map<String, Object>> HISTORY = Collections.synchronizedList(new ArrayList<>());
 
     public static void main(String[] args) {
@@ -65,7 +61,7 @@ public class Main {
                     continue;
                 }
 
-                // Логируем основные параметры (для отладки)
+                
                 Properties props = FCGIInterface.request.params;
                 String query = props.getProperty("QUERY_STRING", "");
                 String method = props.getProperty("REQUEST_METHOD", "GET");
@@ -73,15 +69,13 @@ public class Main {
                 System.err.println("Incoming request: method=" + method + ", uri=" + uri + ", QUERY_STRING=" + query);
 
                 if (query == null || query.trim().isEmpty()) {
-                    // Если нет QUERY_STRING, это может быть health-check или некорректный вызов
-                    // Ответим кратко (чтобы прокси получил ответ)
                     sendResponse(errorJson("empty query"));
                     continue;
                 }
 
                 Map<String, String> params = parseQueryString(query);
 
-                // Подготавливаем и валидируем параметры через PointChecker
+                
                 PointChecker checker = new PointChecker(new HashMap<>(params));
                 if (!checker.validate()) {
                     sendResponse(errorJson("invalid parameters"));
