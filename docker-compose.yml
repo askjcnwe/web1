@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  apache:
+    image: httpd:2.4
+    container_name: apache
+    volumes:
+      - ./static:/usr/local/apache2/htdocs/
+      - ./static/fastcgi.conf:/usr/local/apache2/conf/extra/fastcgi.conf
+    ports:
+      - "80:80"
+    depends_on:
+      - fastcgi-server
+    command: >
+      sh -c "echo 'Include conf/extra/fastcgi.conf' >> /usr/local/apache2/conf/httpd.conf &&
+             httpd-foreground"
+
+  fastcgi-server:
+    build: .
+    container_name: fastcgi-server
+    environment:
+      - FCGI_PORT=9000
+    expose:
+      - "9000"
+
+networks:
+  default:
+    driver: bridge

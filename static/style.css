@@ -1,0 +1,100 @@
+/* базовые стили (наследование: body -> h1 и др.) */
+body {
+    font-family: sans-serif;
+    background-color: #f2f2f2;
+}
+
+/* шапка: явно задаём cursive через id-селектор (требование) */
+#header {
+    font-family: cursive;
+    color: #333;
+    font-size: 20px;
+}
+
+#point-form table td:first-child {
+    width: 70px;          
+    padding-right: 10px; 
+    white-space: nowrap; 
+}
+
+/* класс для основной таблицы */
+.main-table {
+    width: 95%;
+    max-width: 1100px;
+    margin: 10% auto;
+}
+
+.form-section {
+    text-align: center;
+    vertical-align: top;
+    width: 60%; /* увеличиваем ширину колонки с X, Y, R */
+    margin: 0 auto;
+}
+
+/* Центрируем таблицу формы внутри ячейки */
+.form-section form table {
+    margin: 0 auto;
+}
+
+/* Немного увеличим кнопки X */
+.x-btn {
+    min-width: 40px;
+    padding: 6px 10px;
+}
+
+/* Общий стиль таблицы для центрирования и баланса */
+.main-table {
+    border-collapse: collapse;
+    width: 70%; /* чуть меньше ширины экрана, чтобы не растягивалось */
+    margin: 5% auto; /* центрирование */
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+
+
+/* Сделаем таблицу результатов чуть шире и аккуратнее */
+#results {
+    width: 90%;
+    margin: 20px auto;
+    background-color: #fafafa;
+    border-radius: 6px;
+}
+
+td, th {
+    padding: 1%;
+    border: 1px solid #ccc;
+    text-align: center;
+}
+
+/* кнопки X: демонстрация псевдокласса :hover и класса .active */
+button {
+    margin: 2%;
+}
+
+.x-btn:hover {
+    transform: translateY(-2px);
+}
+
+/* активная кнопка X */
+.x-btn.active {
+    background-color: #ddd;
+}
+
+/* input отступы заданы в процентах (требование) */
+input[type="text"] {
+    width: 80%;
+    padding: 2%;
+}
+
+/* псевдоэлемент в заголовке (пример ::first-letter) */
+.header h1::first-letter {
+    font-size: 1.2em;
+    color: #444;
+}
+
+/* демонстрация псевдокласса :first-child */
+#results tbody tr:first-child {
+    font-weight: bold;
+}

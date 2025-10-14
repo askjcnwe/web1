@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Проверка точки — FastCGI</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <table class="main-table">
+        <tr class="header">
+            <td colspan="3">
+                <h1 id="header">Шкитпан А. О. — Группа P3208 — Вариант 468105</h1>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="form-section">
+                <form id="point-form" method="GET" action="/check">
+                    <table>
+                        <tr>
+                           <td>X:</td>
+                            <td id="x-buttons">
+                                <button type="button" class="x-btn" onclick="setX(-5, this)">-5</button>
+                                <button type="button" class="x-btn" onclick="setX(-4, this)">-4</button>
+                                <button type="button" class="x-btn" onclick="setX(-3, this)">-3</button>
+                                <button type="button" class="x-btn" onclick="setX(-2, this)">-2</button>
+                                <button type="button" class="x-btn" onclick="setX(-1, this)">-1</button>
+                                <button type="button" class="x-btn" onclick="setX(0, this)">0</button>
+                                <button type="button" class="x-btn" onclick="setX(1, this)">1</button>
+                                <button type="button" class="x-btn" onclick="setX(2, this)">2</button>
+                                <button type="button" class="x-btn" onclick="setX(3, this)">3</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Y:</td>
+                            <td><input type="text" id="y" name="y" placeholder="-3 ... 3"></td>
+                        </tr>
+                        <tr>
+                            <td>R:</td>
+                            <td>
+                                <label><input type="radio" name="r" value="1">1</label>
+                                <label><input type="radio" name="r" value="2">2</label>
+                                <label><input type="radio" name="r" value="3">3</label>
+                                <label><input type="radio" name="r" value="4">4</label>
+                                <label><input type="radio" name="r" value="5">5</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <button type="submit">Проверить</button>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <table id="results">
+                    <thead>
+                        <tr><th>X</th><th>Y</th><th>R</th><th>Результат</th><th>Время (мкс)</th><th>Время запроса</th></tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
