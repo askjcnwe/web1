@@ -10,10 +10,10 @@ COPY lib ./lib
 COPY src ./src
 
 # Собираем jar
-RUN gradle clean build -x test
+RUN gradle clean build 
 
 # ---- Run stage ----
-FROM openjdk:17-jdk-slim
+FROM eclipse-temurin:17-jre-alpine
 WORKDIR /app
 
 # Копируем jar из стадии сборки
