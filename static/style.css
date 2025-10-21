@@ -1,101 +1,119 @@
-/* базовые стили (наследование: body -> h1 и др.) */
+/* Глобальные стили */
 body {
     font-family: sans-serif;
-    background-color: #f2f2f2;
+    background-color: #f8f9fa; /* глобальный фон */
 }
 
-/* шапка: явно задаём cursive через id-селектор (требование) */
+/* Шапка — демонстрация id-селектора */
 #header {
     font-family: cursive;
     color: #333;
     font-size: 20px;
 }
 
+/* Таблицы формы: оформление первой колонки */
 #point-form table td:first-child {
-    width: 70px;          
-    padding-right: 10px; 
-    white-space: nowrap; 
+    width: 70px;
+    padding-right: 10px;
+    white-space: nowrap;
 }
 
-/* класс для основной таблицы */
-.main-table {
-    width: 95%;
-    max-width: 1100px;
-    margin: 10% auto;
-}
-
-.form-section {
-    text-align: center;
-    vertical-align: top;
-    width: 60%; /* увеличиваем ширину колонки с X, Y, R */
-    margin: 0 auto;
-}
-
-/* Центрируем таблицу формы внутри ячейки */
-.form-section form table {
-    margin: 0 auto;
-}
-
-/* Немного увеличим кнопки X */
-.x-btn {
-    min-width: 40px;
-    padding: 6px 10px;
-}
-
-/* Общий стиль таблицы для центрирования и баланса */
+/* Основной стиль таблиц */
 .main-table {
     border-collapse: collapse;
-    width: 70%; /* чуть меньше ширины экрана, чтобы не растягивалось */
-    margin: 5% auto; /* центрирование */
+    width: 70%;
+    margin: 5% auto;
     background-color: white;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
 }
 
-
-
-/* Сделаем таблицу результатов чуть шире и аккуратнее */
-#results {
-    width: 90%;
-    margin: 20px auto;
-    background-color: #fafafa;
-    border-radius: 6px;
-}
-
+/* Цвет границ таблицы */
 td, th {
     padding: 1%;
-    border: 1px solid #ccc;
+    border: 1px solid #e9ecef;
     text-align: center;
 }
 
-/* кнопки X: демонстрация псевдокласса :hover и класса .active */
+/* Таблица формы */
+#form-table {
+    width: 50%;
+    margin-top: 5%;
+    margin-bottom: 24px;
+}
+
+/* Таблица результатов */
+#results-table {
+    width: 90%;
+    margin: 20px auto;
+    background-color: #fafafa;
+}
+
+/* Отступ между таблицами */
+
+
+/* Центрирование формы */
+.form-section form table {
+    margin: 0 auto;
+}
+
+/* Кнопки X и общие кнопки */
 button {
     margin: 2%;
+    background-color: #98c793;
+    border: none;
+    color: #fff;
+    padding: 6px 12px;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
-.x-btn:hover {
+/* Hover и активное состояние */
+button:hover {
     transform: translateY(-2px);
+    opacity: 0.9;
 }
 
-/* активная кнопка X */
 .x-btn.active {
-    background-color: #ddd;
+    background-color: #6ba96a;
 }
 
-/* input отступы заданы в процентах (требование) */
+/* Input: отступы в процентах */
 input[type="text"] {
     width: 80%;
     padding: 2%;
 }
 
-/* псевдоэлемент в заголовке (пример ::first-letter) — применяем к #header */
+/* Псевдоэлемент для заголовка */
 #header::first-letter {
     font-size: 1.2em;
     color: #444;
 }
 
-
-/* демонстрация псевдокласса :first-child */
-#results tbody tr:first-child {
+/* Демонстрация псевдокласса */
+#results-table tbody tr:first-child {
     font-weight: bold;
+}
+
+/* Блок дополнительной информации */
+.info {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #f8f9fa;
+    border-top: 1px solid #e9ecef;
+    text-align: center;
+    padding: 10px 0;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+}
+
+
+.info figure {
+    margin-top: 10px;
+}
+
+.info img {
+    border-radius: 6px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }

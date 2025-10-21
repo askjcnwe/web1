@@ -2,15 +2,15 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Проверка точки — FastCGI</title>
+    <title>Проверка точки</title>
     <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
 </head>
 <body>
-    <table class="main-table">
+    <table class="main-table" id="form-table">
         <tr class="header">
             <td colspan="3">
-                <h1 id="header">Шкитпан А. О. — Группа P3208 — Вариант 468105</h1>
+                <h1 id="header">Шкиптан А. О. — Группа P3208 — Вариант 468105</h1>
             </td>
         </tr>
 
@@ -55,17 +55,32 @@
                 </form>
             </td>
         </tr>
-
-        <tr>
-            <td>
-                <table id="results">
-                    <thead>
-                        <tr><th>X</th><th>Y</th><th>R</th><th>Результат</th><th>Время (мкс)</th><th>Время запроса</th></tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
-            </td>
-        </tr>
     </table>
+
+    
+
+    <table class="main-table" id="results-table">
+        <thead>
+            <tr>
+                <th>X</th>
+                <th>Y</th>
+                <th>R</th>
+                <th>Результат</th>
+                <th>Время (мкс)</th>
+                <th>Время запроса</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <details class="info">
+        <summary>Дополнительная информация</summary>
+        <figure>
+            <img src="img/shrimp.jpg" alt="Shrimp" width="300">
+            <figcaption>
+                Исходный код доступен по <a href="https://github.com/askjcnwe/web1" target="_blank">ссылке</a>.
+            </figcaption>
+        </figure>
+    </details>
 </body>
 </html>

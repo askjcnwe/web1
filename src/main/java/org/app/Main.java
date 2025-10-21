@@ -11,6 +11,7 @@ import java.util.*;
 
 public class Main {
 
+    //Шаблон ответа
     private static final String BASE_RESPONSE_TEMPLATE = ""
             + "Status: 200 OK\r\n"
             + "Content-Type: application/json\r\n"
@@ -24,10 +25,13 @@ public class Main {
     private static final List<Map<String, Object>> HISTORY = Collections.synchronizedList(new ArrayList<>());
 
     public static void main(String[] args) {
+
+        //создание интерфейса
         FCGIInterface fcgi = new FCGIInterface();
         System.err.println("FastCGI server started, waiting for GET requests...");
         System.err.flush();
 
+        //Цикл приема запросов
         while (true) {
             int ret;
             try {
@@ -43,25 +47,25 @@ public class Main {
 
 
             if (ret < 0) {
-                // если не получилось принять соединение — ждём и пробуем снова
+                // если не получилось принять соединение ждём и пробуем снова
                 sleepMillis(200);
                 continue;
             }
 
             try {
                 if (FCGIInterface.request == null) {
-                    System.err.println("Warning: FCGIInterface.request == null — пропускаем итерацию");
+                    System.err.println("FCGIInterface.request == null => пропускаем итерацию");
                     System.err.flush();
                     continue;
                 }
 
                 if (FCGIInterface.request.params == null) {
-                    System.err.println("Warning: FCGIInterface.request.params == null — пропускаем итерацию");
+                    System.err.println("FCGIInterface.request.params == null => пропускаем итерацию");
                     System.err.flush();
                     continue;
                 }
 
-                
+                //Получение параметров запроса
                 Properties props = FCGIInterface.request.params;
                 String query = props.getProperty("QUERY_STRING", "");
                 String method = props.getProperty("REQUEST_METHOD", "GET");
@@ -75,18 +79,18 @@ public class Main {
 
                 Map<String, String> params = parseQueryString(query);
 
-                
+                //Проверка на попадание
                 PointChecker checker = new PointChecker(new HashMap<>(params));
                 if (!checker.validate()) {
                     sendResponse(errorJson("invalid parameters"));
                     continue;
                 }
+                
 
                 long startNs = System.nanoTime();
                 boolean hit = checker.isHit();
                 long elapsedUs = (System.nanoTime() - startNs) / 1000;
-                String serverTime = DateTimeFormatter.ISO_INSTANT.format(java.time.Instant.now());
-
+                
 
                 Map<String, Object> entry = new LinkedHashMap<>();
                 entry.put("x", checker.getX());
@@ -94,11 +98,11 @@ public class Main {
                 entry.put("r", checker.getR());
                 entry.put("result", hit);
                 entry.put("time_us", elapsedUs);
-                //entry.put("server_time", serverTime);
+                
 
                 HISTORY.add(entry);
 
-                // Формируем ответ: last + history
+                // Формируем ответ из последнего результата и истории результатов
                 StringBuilder sb = new StringBuilder();
                 sb.append("{");
                 sb.append("\"status\":\"ok\",");
@@ -127,6 +131,12 @@ public class Main {
     }
 
     // Парсинг QUERY_STRING (url-decode ключей и значений)
+
+    /**
+     * Метод для парсинга query_string -> map
+     * @param qs query_string
+     * @return map
+     */
     private static Map<String, String> parseQueryString(String qs) {
         Map<String, String> map = new HashMap<>();
         if (qs == null || qs.isEmpty()) return map;
@@ -144,6 +154,11 @@ public class Main {
         return map;
     }
 
+    /**
+     * Метод для конвертации словаря в json строку
+     * @param m словарь
+     * @return json-строка
+     */
     private static String mapToJson(Map<String, Object> m) {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
@@ -165,11 +180,20 @@ public class Main {
         return sb.toString();
     }
 
+
+    /**
+     * Метод для экранирования символов
+     * @param s json строка
+     * @return Преобразованная строка
+     */
     private static String escapeJson(String s) {
         if (s == null) return "";
         return s.replace("\\", "\\\\").replace("\"", "\\\"").replace("\n", "\\n").replace("\r", "\\r");
     }
-
+    /**
+     * Метод для отправки ответа
+     * @param body тело ответа
+     */
     private static void sendResponse(String body) {
         try {
             byte[] bodyBytes = body.getBytes(StandardCharsets.UTF_8);
@@ -181,6 +205,12 @@ public class Main {
         }
     }
 
+
+    /**
+     * Метод для формирования JSON ошибок
+     * @param msg Сообщение об ошибке 
+     * @return Ответ в виде JSON-строки
+     */
     private static String errorJson(String msg) {
         return String.format("{\"status\":\"error\",\"message\":\"%s\"}", escapeJson(msg));
     }
