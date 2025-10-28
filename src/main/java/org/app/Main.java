@@ -34,29 +34,12 @@ public class Main {
         FCGIInterface fcgi = new FCGIInterface();
         System.err.println("FastCGI server started, waiting for GET requests...");
         System.err.flush();
-        //System.setProperty("FCGI_PORT", "");
+        
         //Цикл приема запросов
-        while (true) {
-            int ret;
-            try {
-                ret = fcgi.FCGIaccept();
-            } catch (Throwable t) {
-                System.err.println("FCGIaccept threw exception: " + t.getMessage());
-                System.err.flush();
-                t.printStackTrace();
-                sleepMillis(200);
-                continue;
-            }
+        while (fcgi.FCGIaccept() >= 0) {
+            
             System.err.println("FCGIaccept called");
-
-
-            if (ret < 0) {
-                // если не получилось принять соединение ждём и пробуем снова
-                System.err.println("-1");
-                sleepMillis(200);
-                continue;
-            }
-
+            
             try {
                 if (FCGIInterface.request == null) {
                     System.err.println("FCGIInterface.request == null => пропускаем итерацию");
