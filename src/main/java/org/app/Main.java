@@ -1,12 +1,16 @@
 package org.app;
 
-import com.fastcgi.FCGIInterface;
-
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 
-import java.time.format.DateTimeFormatter;
-import java.util.*;
+import com.fastcgi.FCGIInterface;
 
 
 public class Main {
@@ -30,7 +34,7 @@ public class Main {
         FCGIInterface fcgi = new FCGIInterface();
         System.err.println("FastCGI server started, waiting for GET requests...");
         System.err.flush();
-
+        //System.setProperty("FCGI_PORT", "");
         //Цикл приема запросов
         while (true) {
             int ret;
@@ -48,6 +52,7 @@ public class Main {
 
             if (ret < 0) {
                 // если не получилось принять соединение ждём и пробуем снова
+                System.err.println("-1");
                 sleepMillis(200);
                 continue;
             }

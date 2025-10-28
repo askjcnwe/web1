@@ -8,7 +8,7 @@ services:
       - ./static:/usr/local/apache2/htdocs/
       - ./static/fastcgi.conf:/usr/local/apache2/conf/extra/fastcgi.conf
     ports:
-      - "80:80"
+      - "8080:80"
     depends_on:
       - fastcgi-server
     command: >

@@ -49,7 +49,7 @@ td, th {
     background-color: #fafafa;
 }
 
-/* Отступ между таблицами */
+
 
 
 /* Центрирование формы */
@@ -75,7 +75,11 @@ button:hover {
 }
 
 .x-btn.active {
-    background-color: #6ba96a;
+    background-color: #991111;
+}
+
+button.x-btn.active {
+    background-color: #666666;
 }
 
 /* Input: отступы в процентах */
@@ -110,7 +114,7 @@ input[type="text"] {
 
 
 .info figure {
-    margin-top: 10px;
+    margin-top: 20px;
 }
 
 .info img {
